@@ -12,9 +12,9 @@ they disagree.
 
 ## What each CI entry means
 
-- **msrv**: the contracts still build and pass on the oldest supported rustc. A failure here means a change used a newer language or library feature. Either avoid it, or raise the MSRV on purpose (see below).
-- **release**: the toolchain deployed wasm is built with. The job writes each wasm's sha256 to the run summary and uploads the files as the `contract-wasm-release` artifact (kept 14 days). A reviewer can compare those hashes against `verify:deployment` output without installing Rust.
-- **stable**: an early warning for the next Rust release. It doesn't change what gets deployed. A failure means the next release-pin bump needs work first; it is not a reason to bump the pin.
+- `**msrv**`: the contracts still build and pass on the oldest supported rustc. A failure here means a change used a newer language or library feature. Either avoid it, or raise the MSRV on purpose (see below).
+- `**release**`: the toolchain deployed wasm is built with. The job writes each wasm's sha256 to the run summary and uploads the files as the `contract-wasm-release` artifact (kept 14 days). A reviewer can compare those hashes against `verify:deployment` output without installing Rust.
+- `**stable**`: an early warning for the next Rust release. It doesn't change what gets deployed. A failure means the next release-pin bump needs work first; it is not a reason to bump the pin.
 
 The matrix uses `fail-fast: false`, so one failing entry never hides the others. We suggest maintainers make `verify`, `contracts (msrv)` and `contracts (release)` required checks. `contracts (stable)` can break without anyone touching this repo, when a new Rust ships, so it stays advisory.
 
@@ -30,6 +30,24 @@ cargo +stable test --manifest-path contracts-soroban/Cargo.toml --release --lock
 ```
 
 Inside this repo, rustup picks `rust-toolchain.toml` over your default toolchain. `cargo +<toolchain>` or `RUSTUP_TOOLCHAIN=<toolchain>` overrides it for one command; that is also how CI runs the other matrix entries.
+
+## Dev container
+
+Contributors who don't want to install Node, Rust and the Stellar CLI by themselves can open this repo in a Codespace or the VS Code Dev Containers extension. `.devcontainer/` pins every tool to the same versions the checks above use:
+
+- Node from `.nvmrc`.
+- Rust from `rust-toolchain.toml`, with the `wasm32v1-none` target already installed.
+- A pinned `stellar-cli` release for the bindings script.
+
+After the container is created it runs `npm ci` and fetches no secrets. The same
+commands as above work inside it:
+
+```bash
+npm run test:node
+npm run test:contracts
+```
+
+The container does not run workers; that remains outside its scope.
 
 ## Changing a version
 
