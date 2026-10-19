@@ -1,0 +1,27 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "feat/issue-382-feat-contracts-add-a-paginated-withdrawable",
+    "feat/issue-395-feat-api-add-an-optional-postgres-backed-rate",
+    "feat/issue-457-feat-devx-add-a-dev-container-with-node-rust",
+    "fix/issue-460-chore-ci-detect-drift-between-generated",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "feat/issue-382-feat-contracts-add-a-paginated-withdrawable": "main",
+    "feat/issue-395-feat-api-add-an-optional-postgres-backed-rate": "main",
+    "feat/issue-457-feat-devx-add-a-dev-container-with-node-rust": "main",
+    "fix/issue-460-chore-ci-detect-drift-between-generated": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "feat/issue-382-feat-contracts-add-a-paginated-withdrawable",
+    "feat/issue-395-feat-api-add-an-optional-postgres-backed-rate",
+    "feat/issue-457-feat-devx-add-a-dev-container-with-node-rust",
+    "fix/issue-460-chore-ci-detect-drift-between-generated",
+    "origin"
+  ]
+}
